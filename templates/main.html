@@ -1,0 +1,100 @@
+{% from 'macros.html' import render_add_fee %}
+
+
+<!DOCTYPE html>
+<html>
+<head>
+	<title>testing</title>
+	<link rel="stylesheet" type="text/css" href="static/styles2.css">
+</head>
+<body>
+	<div>
+		<header>
+			{% if current_user.is_authenticated %}
+			<nav>
+				<a href="#">Главная</a>
+				<a href="#">Сервис</a>
+				<a href="#">Об услуге</a>
+				<a href="{{ url_for('logout') }}">Выйти</a>
+			</nav>
+			<div id="header_street_title">
+				<label>г.{{ current_user.city }}</label>
+				<label>
+					<span>{{ current_user.street }} {{ current_user.house_number }}</span><br>
+				</label>
+				<label>кв.{{ current_user.flat_number }}</label>
+			</div>
+			{% endif %}
+		</header>
+
+
+		<main>
+			<section class="tab_links" id="tab_links">
+				<ul class="main_tabbar">
+					<li>
+						<a href="#about_house"><b>О доме</b></a>
+					</li>
+					<li>
+						<a href="#main_statistics_data"><b>Комунальные платежи</b></a>
+					</li>
+					<li>
+						<a href="#main_add_fees"><b>Подать отчетность</b></a>
+					</li>
+				</ul>
+			</section>
+			<section class="about_house" id="about_house">
+				<h2>О доме</h2>
+				<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Laborum dolores, sed quaerat ullam accusantium consequuntur, debitis dolor nisi sequi nam excepturi quos non voluptas. Voluptatum, reiciendis omnis aliquam iure modi velit odit harum. Odit, at, cupiditate. Deserunt necessitatibus quaerat eligendi, obcaecati accusantium sed numquam, dolores totam? Cupiditate cum ullam alias, pariatur quod explicabo perspiciatis quasi quae voluptas vitae officiis recusandae.</p>
+				<p>Secondary part of about the house.</p>
+				<figure>
+					<img src="../static/images/plan.jpg" alt="План здания" sizes="(max-width: 600px) 300px, (min-width: 600px) 600px">
+					<figcaption>План здания</figcaption>
+				</figure>
+			</section>
+			<section class="main_statistics_data" id="main_statistics_data">
+				<h2>Отчетность</h2>
+				<table>
+					<caption>За последние 6 месяцев</caption>
+					<tr>
+						<th>Дата</th>
+						<th>Г/в</th>
+						<th>Х/в</th>
+						<th>Газ</th>
+						<th>Электричество</th>
+					</tr>
+					{% for row in stat %}
+					<tr>
+						<td>{{ row.interval.strftime('%Y-%m') }}</td>
+						<td>{{ row.hot_water }}</td>
+						<td>{{ row.cold_water }}</td>
+						<td>{{ row.gas }}</td>
+						<td>{{ row.electricity}}</td>
+					</tr>
+					{% endfor %}
+				</table>
+			</section>
+			<section class="main_add_fees" id="main_add_fees">
+				<form action="" method="post" name="fees_form">
+					<h2>Дача показаний</h2>
+					{{ form.hidden_tag() }}
+					{% for field in form %}
+						{% if field.type=='CSRFTokenField' %}
+
+						{% else %}
+						<label for="{{ field.name }}">{{ field.label.text }}:</label>
+						{% endif %}
+						{{ render_add_fee(field) }}
+					{% endfor %}
+					<button type="submit">Записать показания</button>
+				</form>
+			</section>
+		</main>
+		<hr>
+
+
+		<footer>
+			<p><small>&copy; 2018</small></p>
+		</footer>
+	</div>
+</body>
+</html>

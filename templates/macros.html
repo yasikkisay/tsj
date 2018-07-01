@@ -1,0 +1,28 @@
+{% macro render_add_fee(field) %}
+    <div class="field">
+        {% if field.errors %}
+        {% for error in field.errors %}
+            <div class="notification error">{{ error }}</div>
+        {% endfor %}
+        {% endif %}
+        {% if field.type=='DateField' %}
+            {{ field(placeholder=field.label.text, type='month') }}
+        {% elif field.type=='CSRFTokenField' %}
+            {{ field(placeholder=field.label.text, type='hidden') }}
+        {% else %}
+            {{ field(placeholder='Введите значение', type='number') }}
+        {% endif %}
+    </div>
+{% endmacro %}
+
+
+{% macro render_field(field) %}
+    <div class="field">
+        {% if field.errors %}
+        {% for error in field.errors %}
+            <div class="notification error">{{ error }}</div>
+        {% endfor %}
+        {% endif %}
+        {{ field(placeholder=field.label.text) }}
+    </div>
+{% endmacro %}
