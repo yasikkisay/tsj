@@ -1,0 +1,51 @@
+html {
+	height: 100%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+
+.login_block {
+	padding: 30px 50px 10px 50px;
+	border: 4px solid #3C81DE;
+	border-radius: 10px;
+	background-color: rgba(237, 246, 252, 1);
+	color: #2F2F3E;
+	font-family: sans-serif;
+}
+
+.login_block form {
+	display: flex;
+	flex-direction: column;
+}
+
+.field {
+	margin-top: 15px;
+}
+
+.field input {
+	width: 100%;
+}
+
+.field:last-of-type {
+	display: none;
+}
+
+button[type="submit"] {
+	color: #FFFFFF;
+	border: none;
+	border-radius: 5px;
+	background: linear-gradient(to top, #2C26A6, #4A43E0);
+	height: 30px;
+    margin: 20px 25px 10px 25px;
+}
+
+.login_agreament {
+	font-family: Tahoma, sans-serif;
+	font-size: 12px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	margin-top: 10px;
+}
